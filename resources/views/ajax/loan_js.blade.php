@@ -123,7 +123,7 @@
             let edit_loan_status = $('#edit_loan_status').val();
             let edit_installment_start_date = $('#edit_installment_start_date').val();
             let edit_installment_amount = $('#edit_installment_amount').val();
-            
+
             $.ajax({
                 url: "{{ route('edit.loan') }}",
                 method: 'post',
@@ -213,6 +213,13 @@
                     },
                 });
             }
+        });
+
+
+        //export excel button
+        $(document).on('click', '#button_export', function(e) {
+            e.preventDefault();
+            $("#export_excel").toggle();
         });
 
     });

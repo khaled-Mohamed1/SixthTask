@@ -48,8 +48,7 @@
                     <div class="col-md-6">
                         <label class="form-label required">حالة القرض</label>
                         <select name="loan_status" id="loan_status" class="form-select">
-                            <option selected disabled value="">Choose...</option>
-                            <option value="غير مسدد">غير مسدد</option>
+                            <option selected value="غير مسدد">غير مسدد</option>
                             <option value="مسدد جزئي">مسدد جزئي</option>
                             <option value="مسدد كامل">مسدد كامل</option>
                         </select>

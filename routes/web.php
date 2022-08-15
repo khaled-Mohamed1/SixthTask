@@ -32,5 +32,7 @@ Route::controller(InstallmentController::class)->group(function () {
     Route::post('loans/delete-installment', 'deleteInstallment')->name('delete.installment');
     Route::post('loans/payment-installment', 'paymentInstallment')->name('payment.installment');
     Route::post('loans/edit_payment-installment', 'editPaymentInstallment')->name('editpayment.installment');
+    Route::post('loans/importy-installment', 'importInstallment')->name('import.installment');
+
 });
 

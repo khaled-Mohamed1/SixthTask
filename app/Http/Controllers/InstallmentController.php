@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\InstallmentImport;
 use App\Models\Installment;
 use App\Models\Loan;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InstallmentController extends Controller
 {
@@ -45,7 +47,6 @@ class InstallmentController extends Controller
             $amount = 0;
         }
 
-        // $installment_paid_amount = $installment->paid_amount;
         $request->validate(
             [
                 'paid_amount' => 'required',
@@ -70,7 +71,6 @@ class InstallmentController extends Controller
             'installment_status' => $status,
         ]);
 
-        // $status = Installment::where('loan_id', $request->loan_id)->withCount('installment_status')->get();
         $loan = Installment::where('loan_id', $request->loan_id)->get();
 
         $i = 0;
@@ -133,8 +133,6 @@ class InstallmentController extends Controller
             $old_installment_amount = $item->installment_amount;
         }
 
-        // dd($old_installment_amount);
-
         if ($request->edit_installment_amount > $old_installment_amount) {
             $request->validate(
                 [
@@ -148,7 +146,6 @@ class InstallmentController extends Controller
 
                 ]
             );
-            
         } elseif ($request->edit_installment_amount < $old_installment_amount) {
             $data = Installment::where('id', $request->edit_id)->get();
             foreach ($data as $item) {
@@ -217,5 +214,19 @@ class InstallmentController extends Controller
         return response()->json([
             'status' => 'success',
         ]);
+    }
+
+
+    public function importInstallment(Request $request)
+    {
+
+        if ($request->hasFile('import_file')) {
+
+            Excel::import(new InstallmentImport(), $request->file('import_file'));
+
+            return 'success';
+        }else{
+            return redirect()->route('loans');
+        }
     }
 }
